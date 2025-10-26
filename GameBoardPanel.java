@@ -1,3 +1,7 @@
+// Name: Kaixiang Liu
+// USC NetID: liukaixi@usc
+// CS 455 PA3
+// Fall 2025
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -7,7 +7,10 @@
    To run it from the command line: 
       java MineSweeperFixed
  */
-
+// Name: Kaixiang Liu
+// USC NetID: liukaixi@usc
+// CS 455 PA3
+// Fall 2025
 import javax.swing.JFrame;
 
 public class MineSweeperFixed {

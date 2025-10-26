@@ -1,7 +1,7 @@
-// Name:
-// USC NetID:
+// Name: Kaixiang Liu
+// USC NetID: liukaixi@usc
 // CS 455 PA3
-// Spring 2025
+// Fall 2025
 
 
 /**

@@ -116,11 +116,21 @@ public class MineField {
      @return  the number of mines adjacent to the square at (row, col)
      PRE: inRange(row, col)
    */
+
    public int numAdjacentMines(int row, int col) {
-      return 0;       // DUMMY CODE so skeleton compiles
+      int bombCount = 0;
+      // calculate the adjacent bombCounts
+      for(int i = -1; i <= 1; i++){
+         for(int k = -1; k <= 1; k++){
+            if(i == 0 && k ==0) continue;
+            int checkedRow = row + i;
+            int checkedCol = col + k;
+            if(inRange(checkedRow,checkedCol) && mines[checkedRow][checkedCol]) bombCount++;
+         }
+      }
+      return bombCount;
    }
-   
-   
+
    /**
       Returns true iff (row,col) is a valid field location.  Row numbers and column numbers
       start from 0.
@@ -129,6 +139,7 @@ public class MineField {
       @return whether (row, col) is a valid field location
    */
    public boolean inRange(int row, int col) {
+      //return true if the current row is inbounds
       return row >= 0 && row < rows && col >= 0 && col < cols; 
    }
    
@@ -138,7 +149,7 @@ public class MineField {
       @return number of rows in the field
    */  
    public int numRows() {
-      return 0;       // DUMMY CODE so skeleton compiles
+      return rows;   
    }
    
    
@@ -147,7 +158,7 @@ public class MineField {
       @return number of columns in the field
    */    
    public int numCols() {
-      return 0;       // DUMMY CODE so skeleton compiles
+      return cols;
    }
    
    
@@ -159,7 +170,7 @@ public class MineField {
       PRE: inRange(row, col)   
    */    
    public boolean hasMine(int row, int col) {
-      return false;       // DUMMY CODE so skeleton compiles
+      return mines[row][col];
    }
    
    
@@ -171,7 +182,7 @@ public class MineField {
       @return number of mines
     */
    public int numMines() {
-      return 0;       // DUMMY CODE so skeleton compiles
+      return targetMineCount;
    }
 
    

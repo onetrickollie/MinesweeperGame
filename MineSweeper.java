@@ -9,7 +9,10 @@
    DO NOT CHANGE THIS FILE
 
  */
-
+// Name: Kaixiang Liu
+// USC NetID: liukaixi@usc
+// CS 455 PA3
+// Fall 2025
 import javax.swing.JFrame;
 
 public class MineSweeper {
