@@ -1,7 +1,7 @@
-// Name:
-// USC NetID:
+// Name: Kaixiang Liu
+// USC NetID: liukaixi@usc
 // CS 455 PA3
-// Spring 2025
+// Fall 2025
 
 
 /** 
@@ -11,10 +11,15 @@
       Mutators: populateMineField, resetEmpty
       Includes convenience method to tell the number of mines adjacent to a location.
  */
+import java.util.Random;
 public class MineField {
    
    // <put instance variables here>
-   
+   private final int rows;
+   private final int cols;
+   private final boolean[][]mines;        // an boolean array to display the mine status
+   private int targetMineCount;
+   private final Random rng = new Random();
    
    
    /**
@@ -26,7 +31,21 @@ public class MineField {
                        and must be rectangular (i.e., every row is the same length)
     */
    public MineField(boolean[][] mineData) {
-      
+      this.rows = mineData.length;
+      this.cols = mineData[0].length;
+      this.mines = new boolean[rows][cols];
+
+      int count = 0;
+      for(int i = 0; i < rows; i++){
+         for(int k = 0; k<cols;k++){
+            boolean checker = mineData[i][k];
+            this.mines[i][k] = checker;   // setting a defensive copy to point at different references
+            if(checker){
+               count++;
+            }
+         }
+      }
+      this.targetMineCount = count; 
    }
    
    
