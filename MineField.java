@@ -36,10 +36,10 @@ public class MineField {
       this.mines = new boolean[rows][cols];
 
       int count = 0;
-      for(int i = 0; i < rows; i++){
-         for(int k = 0; k<cols;k++){
-            boolean checker = mineData[i][k];
-            this.mines[i][k] = checker;   // setting a defensive copy to point at different references
+      for(int r = 0; r < rows; r++){
+         for(int c = 0; c<cols;c++){
+            boolean checker = mineData[r][c];
+            this.mines[r][c] = checker;   // setting a defensive copy to point at different references
             if(checker){
                count++;
             }
@@ -59,7 +59,11 @@ public class MineField {
       PRE: numRows > 0 and numCols > 0 and 0 <= numMines < (1/3 of total number of field locations). 
     */
    public MineField(int numRows, int numCols, int numMines) {
-      
+      // must have prereq: numRows/numCols > 0, numMines >= 0 && <(1/3 of total blocks)
+      this.rows = numRows;
+      this.cols = numCols;
+      this.mines = new boolean[rows][cols];
+      this.targetMineCount = numMines;
    }
    
 
@@ -83,7 +87,11 @@ public class MineField {
       beginning of a game.
     */
    public void resetEmpty() {
-      
+      for(int r = 0; r < rows; r++){
+         for(int c = 0; c < cols; c++){
+            mines[r][c] = false;
+         }
+      }
    }
 
    
