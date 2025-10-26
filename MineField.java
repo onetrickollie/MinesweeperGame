@@ -129,7 +129,7 @@ public class MineField {
       @return whether (row, col) is a valid field location
    */
    public boolean inRange(int row, int col) {
-      return false;       // DUMMY CODE so skeleton compiles
+      return row >= 0 && row < rows && col >= 0 && col < cols; 
    }
    
    
