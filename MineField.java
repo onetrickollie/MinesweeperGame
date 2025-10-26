@@ -19,7 +19,7 @@ public class MineField {
    private final int cols;
    private final boolean[][]mines;        // an boolean array to display the mine status
    private int targetMineCount;
-   private final Random rng = new Random();
+   private final Random rdPlacement = new Random();
    
    
    /**
@@ -75,7 +75,19 @@ public class MineField {
       PRE: inRange(row, col) and numMines() < (1/3 * numRows() * numCols())
     */
    public void populateMineField(int row, int col) {
-      
+      resetEmpty();
+      int bombCounter = 0;
+
+      while(bombCounter < targetMineCount){
+         // using builtin randome generator 
+         int r = rdPlacement.nextInt(rows);
+         int c = rdPlacement.nextInt(cols);
+         if((r == row && c == col) || mines[r][c]){
+            continue;      // if the bomb is placed on the tile user's initial clicked position, ignore
+         }
+         mines[r][c] = true;
+         bombCounter++;
+      }
    }
    
    
