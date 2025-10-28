@@ -241,6 +241,29 @@ public class VisibleField {
       }
    }
    private void dfs(int row, int col){
+      if(!mineField.inRange(row, col));
+      int curr = status[row][col];
+
+      if(curr == MINE_GUESS) return;   //flagged tile
+      if(curr>=0) return;              //uncovered tile
+
+      int adj = mineField.numAdjacentMines(row, col);
+      status[row][col] = adj;
+
+      if(adj == 0){
+         for(int dr = -1; dr <=1;dr++){
+            for(int dc = -1; dc <=1; dc++){
+               if(dr==0 && dc == 0) continue;
+               int rr = row + dr, cc = col + dc;
+               if(mineField.inRange(rr,cc)){
+                  int state = status[rr][cc];
+                  if(state<= QUESTION){
+                     dfs(rr,cc);
+                  }
+               }
+            }
+         }
+      }
 
    }
 }
