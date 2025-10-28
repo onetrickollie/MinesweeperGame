@@ -172,15 +172,16 @@ public class VisibleField {
          status[row][col] = EXPLODED_MINE;
          revealOnLoss(row, col);
          gameStatus = true;
+         return false;
       }
       dfs(row,col);
       checkWin();
-      return false;
+      return true;
    }
  
    
    /**
-      Returns whether the game is over.
+      Returns whether the game is over
       (Note: This is not a mutator.)
       @return whether game has ended
     */
