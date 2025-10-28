@@ -45,7 +45,7 @@ public class VisibleField {
    private final MineField mineField;
    private final int[][] status;
    private int minesLeft;
-   private boolean gameStatus;   // true if still playing
+   private boolean gameStatus;   // true if game ended
 
    /**
       Create a visible field that has the given underlying mineField.
@@ -124,7 +124,7 @@ public class VisibleField {
       if(gameStatus) return;
 
       int curr = status[row][col];
-      if(curr > 0) return;
+      if(curr >= 0) return;
       // COVERED = unopened square
       // MINE_GUESS = suspected mine(flagged)
       // QUESTION = unsure reminder(question mark)
@@ -175,7 +175,7 @@ public class VisibleField {
       }
       dfs(row,col);
       checkWin();
-      return true;
+      return false;
    }
  
    
@@ -241,7 +241,7 @@ public class VisibleField {
       }
    }
    private void dfs(int row, int col){
-      if(!mineField.inRange(row, col));
+      if(!mineField.inRange(row, col)) return;
       int curr = status[row][col];
 
       if(curr == MINE_GUESS) return;   //flagged tile
