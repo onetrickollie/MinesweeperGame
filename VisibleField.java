@@ -45,7 +45,7 @@ public class VisibleField {
    private final MineField mineField;
    private final int[][] status;
    private int minesLeft;
-   private boolean gameStatus;
+   private boolean gameStatus;   // true if still playing
 
    /**
       Create a visible field that has the given underlying mineField.
@@ -157,7 +157,25 @@ public class VisibleField {
       PRE: getMineField().inRange(row, col)
     */
    public boolean uncover(int row, int col) {
-      return false; 
+      if(gameStatus) return true;
+      // guards if player clicks on flagged tile
+      if(status[row][col] == MINE_GUESS) return true;
+      
+      if(status[row][col] >= 0){
+      // checking for victory everytime a tile is flipped
+      // not sure if this is the best apporach, might change later
+         checkWin();
+         return true;
+      }
+      // loseing pending
+      if(mineField.hasMine(row,col)){
+         status[row][col] = EXPLODED_MINE;
+         revealOnLoss(row, col);
+         gameStatus = true;
+      }
+      dfs(row,col);
+      checkWin();
+      return true;
    }
  
    
@@ -180,10 +198,49 @@ public class VisibleField {
       PRE: getMineField().inRange(row, col)
     */
    public boolean isUncovered(int row, int col) {
-      return false;       // DUMMY CODE so skeleton compiles
+      return status[row][col] >= 0;       // DUMMY CODE so skeleton compiles
    }
    
  
    // <put private methods here>
-   
+   private void checkWin(){
+      if(gameStatus) return;
+      for(int r = 0; r < status.length; r++){
+         for(int c = 0; c < status[0].length;c++){
+            // if there are still availble tiles, break loop and return
+            if(!mineField.hasMine(r, c)){
+               int curr = status[r][c];
+               if(curr == COVERED || curr == QUESTION || curr == MINE_GUESS){
+                  return;
+               }
+            }
+         }
+      }
+      // no more square, loop break didnt catch 
+      gameStatus = true;
+
+   }
+   private void revealOnLoss(int explodedRow, int explodedCol){
+      for(int r = 0; r < status.length;r++){
+         for(int c = 0; c < status[0].length;c++){
+            if(r == explodedRow && c == explodedCol) continue;
+            boolean isMine = mineField.hasMine(r,c);
+            int state = status[r][c];
+
+            if(isMine){
+               if(state != MINE_GUESS && state != EXPLODED_MINE){
+                  status[r][c] = MINE;
+               }
+            }
+            else{
+               if(state == MINE_GUESS){
+                  status[r][c] = INCORRECT_GUESS;
+               }
+            }
+         }
+      }
+   }
+   private void dfs(int row, int col){
+
+   }
 }
